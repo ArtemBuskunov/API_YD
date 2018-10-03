@@ -1,0 +1,34 @@
+﻿@model PresentationMVC.Models.Setup
+
+
+@{
+    ViewBag.Title = "Настройки";
+}
+<h1>Настройки</h1>
+@using (Html.BeginForm("Index", "Home", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <div class="form-group">
+            <label for="UrlDirect" class="col-sm-5 control-label">Url подключения к Api</label>
+            <div class="col-sm-7">
+                @Html.TextBox("UrlDirect", Model.UrlDirect, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="OAuthDirect" class="col-sm-5 control-label">Пользовательский токен для Яндекс директ</label>
+            <div class="col-sm-7">
+                @Html.TextBox("OAuthDirect", Model.OAuthDirect, new { @class="form-control" })
+            </div>
+            <div class="col-sm-offset-5 col-sm-7">
+                <a href="https://yandex.ru/adv/edu/direct/direct-api/kak-poluchit-oauth-token"> Как получить OAuth-токен</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-7">
+                <button type="submit" class="btn btn-default">Сохранить</button>
+            </div>
+        </div>
+
+    </div>
+}
+

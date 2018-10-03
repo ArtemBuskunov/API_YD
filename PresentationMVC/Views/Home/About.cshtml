@@ -1,0 +1,99 @@
+﻿@model PresentationMVC.Models.Conect
+
+@{
+    ViewBag.Title = "Показ";
+}
+@using (Html.BeginForm())
+{
+    <div class="row">
+
+        @{
+            if (Model.Client.Count != 0)
+            {
+                foreach (API_Yandex_Direct.Model.Client a in Model.Client)
+                {
+                    <h2> @a.ClientInfo </h2>
+                    var listcampaign = Model.Campaign.FindAll(p => p.ClientInfo == a.ClientInfo);
+
+                    <table class="table table-striped ">
+                        @{
+                            if (listcampaign.Count != 0)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            foreach (var campaign in listcampaign)
+                                            {
+                                                <h3> @campaign.Name </h3>
+                                                var listadGroup = Model.AdGroup.FindAll(p => p.CampaignId == campaign.Id);
+
+                                                if (listadGroup.Count != 0)
+                                                {
+                                                    <ul>
+                                                        @{
+
+                                                            foreach (var adGroup in listadGroup)
+                                                            {
+                                                                <li>
+                                                                    <h4> @adGroup.Name </h4>
+                                                                    @{ var listKeywordClass = Model.KeywordClass.FindAll(p => p.AdGroupId == adGroup.Id);
+                                                                        if (listKeywordClass.Count != 0)
+                                                                        {
+                                                                            <table class="table table-condensed">
+                                                                                @{
+                                                                                    foreach (var keyword in listKeywordClass)
+                                                                                    {
+
+                                                                                        var Bids = Model.Bids.FirstOrDefault(p => p.KeywordId == keyword.Id);
+                                                                                        string bit = ((double)Bids.Bid / 1000000).ToString();
+                                                                                <tr>
+
+                                                                                    <td class="col-lg-9">@keyword.Keyword</td>
+                                                                                    <td class="col-lg-1">@bit рублей</td>
+                                                                                    <td class="col-lg-2">
+                                                                                        @Html.ActionLink("Назначить ставку", "ReturnInfo", "Home",
+                                                                                        new { id = @keyword.Id },
+                                                                                        new { id = "send", @class = "btn btn-info", role = "button", data_toggle = "modal", data_target = "#myModal" })
+                                                                                    </td>
+                                                                                </tr>
+                                                                                    }
+                                                                                }
+                                                                            </table>
+                                                                        }
+                                                                    }
+                                                                </li>
+                                                            }
+                                                        }
+                                                    </ul>}
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+
+                }
+            }
+        }
+
+    </div>
+}
+<!-- Модальное окно -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+           
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/MyAjax.js")

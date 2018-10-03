@@ -1,0 +1,4 @@
+﻿ $(document).on("click", "#send", function () { loadsuccess('<div class="modal-header"><button type = "button" class= "close" data-dismiss="modal" aria - label="Close" ><span aria-hidden="true">&times;</span></button ><h4 class="modal-title" id="myModalLabel">Данные готовятся </h4></div ><div class="modal-body">....</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>'); $.ajax({ type: 'POST', url: $(this).attr('href'), cache: false, success: loadsuccess, error: function (data) { console.log(data); } }); return false; });
+$(document).ready(
+    function loadsuccess(data) { $('.modal-content').empty().append(data); }
+);

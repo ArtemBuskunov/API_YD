@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{584BB09D-95FF-4DDE-BE53-5E637D46F77E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>API_Yandex_Direct</RootNamespace>
+    <AssemblyName>API_Yandex_Direct</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiConnect\ApiConnect.cs" />
+    <Compile Include="ApiConnect\Infrastructure\abstractExceptionNotificationClass.cs" />
+    <Compile Include="ApiConnect\Infrastructure\ApiConnect.cs" />
+    <Compile Include="ApiConnect\Infrastructure\EnumAccepLanguage.cs" />
+    <Compile Include="ApiConnect\Infrastructure\ExceptionNotification.cs" />
+    <Compile Include="ApiConnect\Infrastructure\GetResult.cs" />
+    <Compile Include="ApiConnect\Infrastructure\GetResultError.cs" />
+    <Compile Include="ApiConnect\Infrastructure\JsonConvert.cs" />
+    <Compile Include="ApiConnect\Infrastructure\LimitOffset.cs" />
+    <Compile Include="ApiConnect\Infrastructure\Request.cs" />
+    <Compile Include="ApiConnect\Infrastructure\RequestObject.cs" />
+    <Compile Include="ApiConnect\Infrastructure\RequestStream.cs" />
+    <Compile Include="ApiConnect\Infrastructure\Result.cs" />
+    <Compile Include="ApiConnect\Infrastructure\UserRequest.cs" />
+    <Compile Include="Convert.cs" />
+    <Compile Include="Create\CreateForecast.cs" />
+    <Compile Include="Delete\DeleteForecastReport.cs" />
+    <Compile Include="Delete\ForecastReport\DeleteForecastReportResult4.cs" />
+    <Compile Include="Get\AdGroup\AdGroupsSelectionCriteria.cs" />
+    <Compile Include="Get\AdGroup\DynamicTextAdGroupFieldEnum.cs" />
+    <Compile Include="Get\AdGroup\DynamicTextFeedAdGroupFieldEnum.cs" />
+    <Compile Include="Get\AdGroup\FieldNamesEnum.cs" />
+    <Compile Include="Get\AdGroup\MobileAppAdGroupFieldEnum.cs" />
+    <Compile Include="Get\AdGroup\ParamsRequest.cs" />
+    <Compile Include="Get\AgencyClients\AgencyClientsSelectionCriteria.cs" />
+    <Compile Include="Get\AgencyClients\FieldNamesList.cs" />
+    <Compile Include="Get\AgencyClients\ParamsRequest.cs" />
+    <Compile Include="Get\BidModifier\BidModifiersSelectionCriteria.cs" />
+    <Compile Include="Get\BidModifier\FieldNamesList.cs" />
+    <Compile Include="Get\BidModifier\ParamsRequest.cs" />
+    <Compile Include="Get\Bids\BidsSelectionCriteria.cs" />
+    <Compile Include="Get\Bids\FieldNamesList.cs" />
+    <Compile Include="Get\Bids\ParamsRequest.cs" />
+    <Compile Include="Get\Campaign\FieldNamesList.cs" />
+    <Compile Include="Get\Campaign\ParamsRequest.cs" />
+    <Compile Include="Get\Campaign\SelectionCriteriaFromCampaignRequest.cs" />
+    <Compile Include="Get\Client\FieldNamesList.cs" />
+    <Compile Include="Get\Client\ParamsRequest.cs" />
+    <Compile Include="Get\Forecast\ForecastRequest.cs" />
+    <Compile Include="Get\Forecast\GetForecastListResult4.cs" />
+    <Compile Include="Get\GetAdGroup.cs" />
+    <Compile Include="Get\GetBidModifier.cs" />
+    <Compile Include="Get\GetBids.cs" />
+    <Compile Include="Get\GetCampaign.cs" />
+    <Compile Include="Get\GetClient.cs" />
+    <Compile Include="Get\GetForecast.cs" />
+    <Compile Include="Get\GetKeyword.cs" />
+    <Compile Include="Get\GetKeywordBid.cs" />
+    <Compile Include="Get\GetReports.cs" />
+    <Compile Include="Get\KeywordBid\FieldNamesList.cs" />
+    <Compile Include="Get\KeywordBid\KeywordBidNetworkFieldEnum.cs" />
+    <Compile Include="Get\KeywordBid\KeywordBidSearchFieldEnum.cs" />
+    <Compile Include="Get\KeywordBid\KeywordBidsSelectionCriteria.cs" />
+    <Compile Include="Get\KeywordBid\ParamsRequest.cs" />
+    <Compile Include="Get\Keywords\FieldNamesList.cs" />
+    <Compile Include="Get\Keywords\KeywordsSelectionCriteria.cs" />
+    <Compile Include="Get\Keywords\ParamsRequest.cs" />
+    <Compile Include="Get\Report\DateRangeTypeEnum.cs" />
+    <Compile Include="Get\Report\FieldNamesEnum.cs" />
+    <Compile Include="Get\Report\FilterItem.cs" />
+    <Compile Include="Get\Report\FilterOperatorEnum.cs" />
+    <Compile Include="Get\Report\OrderBy.cs" />
+    <Compile Include="Get\Report\OrderBySortOrderEnum.cs" />
+    <Compile Include="Get\Report\ParamsRequest.cs" />
+    <Compile Include="Get\Report\ReportTypeEnum.cs" />
+    <Compile Include="Get\Report\SelectionCriteria.cs" />
+    <Compile Include="Get\Shared\ParamsRequestAbstract.cs" />
+    <Compile Include="Model\AdGroup.cs" />
+    <Compile Include="Model\BidModifier.cs" />
+    <Compile Include="Model\BidModifierI\DemographicsAdjustment.cs" />
+    <Compile Include="Model\BidModifierI\MobileAdjustment.cs" />
+    <Compile Include="Model\BidModifierI\RegionalAdjustment.cs" />
+    <Compile Include="Model\BidModifierI\RetargetingAdjustment.cs" />
+    <Compile Include="Model\KeywordBid.cs" />
+    <Compile Include="Model\Bids.cs" />
+    <Compile Include="Model\BidsI\AuctionBidItem.cs" />
+    <Compile Include="Model\BidsI\ContextCoverage.cs" />
+    <Compile Include="Model\BidsI\ContextCoverageItem.cs" />
+    <Compile Include="Model\BidsI\PositionEnum.cs" />
+    <Compile Include="Model\BidsI\SearchPrices.cs" />
+    <Compile Include="Model\Campaign.cs" />
+    <Compile Include="Model\CampaignI\DailyBudgetClass.cs" />
+    <Compile Include="Model\CampaignI\RelevantKeywordsSetting.cs" />
+    <Compile Include="Model\CampaignI\Strategy.cs" />
+    <Compile Include="Model\CampaignI\TextCampaign.cs" />
+    <Compile Include="Model\CampaignI\TextCampaignNetworkStrategy.cs" />
+    <Compile Include="Model\CampaignI\TextCampaignSearchStrategy.cs" />
+    <Compile Include="Model\CampaignI\TextCampaignSetting.cs" />
+    <Compile Include="Model\CampaignI\TextCampaignStrategy.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\ClientI\ClientRestrictionItem.cs" />
+    <Compile Include="Model\ClientI\ClientSettingGetItem.cs" />
+    <Compile Include="Model\ClientI\EmailSubscriptionItem.cs" />
+    <Compile Include="Model\ClientI\GrantGetItem.cs" />
+    <Compile Include="Model\ClientI\NotificationGet.cs" />
+    <Compile Include="Model\ClientI\Representative.cs" />
+    <Compile Include="Model\DynamicTextFeed\DynamicTextFeed.cs" />
+    <Compile Include="Model\DynamicText\DynamicText.cs" />
+    <Compile Include="Model\Enum\AdGroupSubtypeEnum.cs" />
+    <Compile Include="Model\Enum\AdGroupTypesEnum.cs" />
+    <Compile Include="Model\Enum\AgeRangeEnum.cs" />
+    <Compile Include="Model\Enum\AppAvailabilityStatusEnum.cs" />
+    <Compile Include="Model\Enum\BidModifierLevelEnum.cs" />
+    <Compile Include="Model\Enum\BidModifierTypeEnum.cs" />
+    <Compile Include="Model\Enum\CampaignFundsEnum.cs" />
+    <Compile Include="Model\Enum\CampaignStateEnum.cs" />
+    <Compile Include="Model\Enum\CampaignStatusPaymentEnum.cs" />
+    <Compile Include="Model\Enum\CampaignStatusSelectionEnum.cs" />
+    <Compile Include="Model\Enum\CampaignTypeEnum.cs" />
+    <Compile Include="Model\Enum\CarrierEnum.cs" />
+    <Compile Include="Model\Enum\ClientRestrictionEnum.cs" />
+    <Compile Include="Model\Enum\ClientSettingGetEnum.cs" />
+    <Compile Include="Model\Enum\CurrencyEnum.cs" />
+    <Compile Include="Model\Enum\DailyBudgetModeEnum.cs" />
+    <Compile Include="Model\Enum\DeviceTypeEnum.cs" />
+    <Compile Include="Model\Enum\EmailSubscriptionEnum.cs" />
+    <Compile Include="Model\Enum\GenderEnum.cs" />
+    <Compile Include="Model\Enum\MobileOperatingSystemTypeEnum.cs" />
+    <Compile Include="Model\Enum\ModerationStatusEnum.cs" />
+    <Compile Include="Model\Enum\PriorityEnum.cs" />
+    <Compile Include="Model\Enum\PrivilegeEnum.cs" />
+    <Compile Include="Model\Enum\RepresentativeRoleEnum.cs" />
+    <Compile Include="Model\Enum\ServingStatusEnum.cs" />
+    <Compile Include="Model\Enum\SourceProcessingStatusEnum.cs" />
+    <Compile Include="Model\Enum\SourceTypeGetEnum.cs" />
+    <Compile Include="Model\Enum\StateEnum.cs" />
+    <Compile Include="Model\Enum\StatusEnum.cs" />
+    <Compile Include="Model\Enum\StatusForecast.cs" />
+    <Compile Include="Model\Enum\TextCampaignNetworkStrategyTypeEnum.cs" />
+    <Compile Include="Model\Enum\TextCampaignSearchStrategyTypeEnum.cs" />
+    <Compile Include="Model\Enum\TextCampaignSettingsEnum.cs" />
+    <Compile Include="Model\Enum\YesNoEnum.cs" />
+    <Compile Include="Model\Enum\YesNoEnum2.cs" />
+    <Compile Include="Model\Forecast\BannerPhraseInfo.cs" />
+    <Compile Include="Create\ForecastReport\CreateForecastRequest.cs" />
+    <Compile Include="Model\Forecast\ForecastCommonInfo.cs" />
+    <Compile Include="Model\Forecast\ForecastStatusInfo.cs" />
+    <Compile Include="Get\Forecast\GetForecastInfo.cs" />
+    <Compile Include="Create\ForecastReport\ForecastInfo.cs" />
+    <Compile Include="Model\Forecast\PhraseAuctionBids.cs" />
+    <Compile Include="Model\Infrastructure\ConstantsItem.cs" />
+    <Compile Include="Model\Infrastructure\Currency.cs" />
+    <Compile Include="Model\Infrastructure\ExtensionModeration.cs" />
+    <Compile Include="Model\Infrastructure\IntItems.cs" />
+    <Compile Include="Model\Infrastructure\longItems.cs" />
+    <Compile Include="Model\Infrastructure\StringItems.cs" />
+    <Compile Include="Model\Keyword.cs" />
+    <Compile Include="Model\KeywordBidl\AuctionBidItem.cs" />
+    <Compile Include="Model\KeywordBidl\AuctionBids.cs" />
+    <Compile Include="Model\KeywordBidl\Coverage.cs" />
+    <Compile Include="Model\KeywordBidl\Network.cs" />
+    <Compile Include="Model\KeywordBidl\NetworkCoverageItem.cs" />
+    <Compile Include="Model\KeywordBidl\Search.cs" />
+    <Compile Include="Model\KeywordI\Productivity.cs" />
+    <Compile Include="Model\KeywordI\Statistics.cs" />
+    <Compile Include="Model\MobileApp\MobileApp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Set\Bids\BidActionResult.cs" />
+    <Compile Include="Set\Bids\BidSetItem.cs" />
+    <Compile Include="Set\Bids\ParamsRequest.cs" />
+    <Compile Include="Set\KeywordBids\KeywordBidActionResult.cs" />
+    <Compile Include="Set\KeywordBids\KeywordBidSetItem.cs" />
+    <Compile Include="Set\KeywordBids\ParamsRequest.cs" />
+    <Compile Include="Set\SetBids.cs" />
+    <Compile Include="Set\SetKeywordBids.cs" />
+    <Compile Include="UpDate\Campaign\CampaignActionResult.cs" />
+    <Compile Include="UpDate\Campaign\CampaignUpdateItem.cs" />
+    <Compile Include="UpDate\Campaign\ParamsRequest.cs" />
+    <Compile Include="UpDate\UpDateCampaign.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Reports\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

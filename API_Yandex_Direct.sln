@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_Yandex_Direct", "API_Yandex_Direct\API_Yandex_Direct.csproj", "{584BB09D-95FF-4DDE-BE53-5E637D46F77E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationMVC", "PresentationMVC\PresentationMVC.csproj", "{640AEC1B-823D-4DE0-AD89-4E0A851577FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{584BB09D-95FF-4DDE-BE53-5E637D46F77E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{584BB09D-95FF-4DDE-BE53-5E637D46F77E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{584BB09D-95FF-4DDE-BE53-5E637D46F77E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{584BB09D-95FF-4DDE-BE53-5E637D46F77E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{640AEC1B-823D-4DE0-AD89-4E0A851577FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{640AEC1B-823D-4DE0-AD89-4E0A851577FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{640AEC1B-823D-4DE0-AD89-4E0A851577FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{640AEC1B-823D-4DE0-AD89-4E0A851577FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AAE4603-4D64-4D9F-82BC-D0CE013F22A0}
+	EndGlobalSection
+EndGlobal
