@@ -48,6 +48,8 @@
     <Compile Include="ApiConnect\ApiConnect.cs" />
     <Compile Include="ApiConnect\Infrastructure\abstractExceptionNotificationClass.cs" />
     <Compile Include="ApiConnect\Infrastructure\ApiConnect.cs" />
+    <Compile Include="ApiConnect\Infrastructure\ApiConnect4.cs" />
+    <Compile Include="ApiConnect\Infrastructure\ApiConnect5.cs" />
     <Compile Include="ApiConnect\Infrastructure\EnumAccepLanguage.cs" />
     <Compile Include="ApiConnect\Infrastructure\ExceptionNotification.cs" />
     <Compile Include="ApiConnect\Infrastructure\GetResult.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Get\Report\ParamsRequest.cs" />
     <Compile Include="Get\Report\ReportTypeEnum.cs" />
     <Compile Include="Get\Report\SelectionCriteria.cs" />
+    <Compile Include="Get\Shared\GetAbstract.cs" />
     <Compile Include="Get\Shared\ParamsRequestAbstract.cs" />
     <Compile Include="Model\AdGroup.cs" />
     <Compile Include="Model\BidModifier.cs" />

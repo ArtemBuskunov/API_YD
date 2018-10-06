@@ -1,38 +1,33 @@
 ﻿using API_Yandex_Direct.Get.AdGroup;
+using API_Yandex_Direct.Get.Shared;
+using System.Linq;
+using System;
 
 namespace API_Yandex_Direct.Get
 {
-    public class GetAdGroup
+    public class GetAdGroup : GetAbstract
     {
-        string[] Headers = new string[] { };
-        public Model.AdGroup[] GetAdGroupParamsRequest(FieldNamesEnum[] SetParamsRequest,
-            long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
+
+        public Model.AdGroup[] GetAdGroups(ParamsRequest paramsRequest, ApiConnect.ApiConnect apiConnect)
+        { return apiConnect.GetResult5(paramsRequest, "adgroups", "get", ref Headers).AdGroups; }
+
+        public Model.AdGroup[] GetAdGroups(long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            string[] pr = new string[SetParamsRequest.Length];
-            for (int i = 0; i < SetParamsRequest.Length; i++) { pr[i] = SetParamsRequest[i].ToString(); }
-            paramsRequest.FieldNames = pr;
-            paramsRequest.SelectionCriteria.CampaignIds = CampaignIds;
-            return apiConnect.GetResult5(paramsRequest, "adgroups", "get", ref Headers).AdGroups;
+            ParamsRequest paramsRequest = new ParamsRequest(new FieldNamesEnum[] { FieldNamesEnum.Id, FieldNamesEnum.Name })
+            { SelectionCriteria = new AdGroupsSelectionCriteria { CampaignIds = CampaignIds } };
+            return GetAdGroups(paramsRequest, apiConnect);
         }
-
-        ///// <summary>
-        /////  Units указано количество баллов: израсходовано при выполнении запроса / доступный остаток / суточный лимит.
-        ///// </summary>
-        //public string Units = "";
-
-
-        /// <summary>
-        /// Настройка фильтра запроса
-        /// </summary>
-        ParamsRequest paramsRequest = new ParamsRequest
+        
+        public Model.AdGroup[] GetAdGroups(FieldNamesEnum[] GetParamsRequest, long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            SelectionCriteria = new AdGroupsSelectionCriteria(),
-            FieldNames = new string[]
-               {
-                   FieldNamesEnum.Id.ToString(),
-                   FieldNamesEnum.Name.ToString()
-               }
-        };
+            if (GetParamsRequest is null) { return null; }
+            ParamsRequest paramsRequest = new ParamsRequest(GetParamsRequest)
+            { SelectionCriteria = new AdGroupsSelectionCriteria { CampaignIds = CampaignIds } };
+            return GetAdGroups(paramsRequest, apiConnect);
+        }
+                
+
+
 
     }
 }

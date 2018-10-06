@@ -3,7 +3,7 @@
     /// <summary>
     /// Перечень доступных полей для запросов
     /// </summary>       
-    public enum FieldNamesList
+    public enum FieldNamesEnum
     {
         Id,
         Keyword,

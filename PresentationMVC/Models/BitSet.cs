@@ -1,4 +1,5 @@
-﻿using API_Yandex_Direct.Model.KeywordBidl;
+﻿using API_Yandex_Direct.Get.KeywordBid;
+using API_Yandex_Direct.Model.KeywordBidl;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,20 +13,20 @@ namespace PresentationMVC.Models
               "",
                Setup.SetupGet.UrlDirect,
               API_Yandex_Direct.ApiConnect.Infrastructure.AccepLanguage.ru);
-        
+
         public KeywordBidSet(long Id)
         {
             keywordId = Id;
 
-            List<API_Yandex_Direct.Model.KeywordBid> keywordBids = new API_Yandex_Direct.Get.GetKeywordBid().GetKeywordBidRequest(
-                new API_Yandex_Direct.Get.KeywordBid.ParamsRequest()
-                {
-                    FieldNames = new string[]
+            List<API_Yandex_Direct.Model.KeywordBid> keywordBids = new API_Yandex_Direct.Get.GetKeywordBid().GetKeywordBids(
+                new API_Yandex_Direct.Get.KeywordBid.ParamsRequest(new FieldNamesEnum[]
                        {
-                           API_Yandex_Direct.Get.KeywordBid.FieldNamesList.KeywordId.ToString(),
-                           API_Yandex_Direct.Get.KeywordBid.FieldNamesList.ServingStatus.ToString(),
-                           API_Yandex_Direct.Get.KeywordBid.FieldNamesList.StrategyPriority.ToString(),
-                       },
+                           FieldNamesEnum.KeywordId,
+                           FieldNamesEnum.ServingStatus,
+                           FieldNamesEnum.StrategyPriority,
+                       }
+                    )
+                {
                     SelectionCriteria = new API_Yandex_Direct.Get.KeywordBid.KeywordBidsSelectionCriteria { KeywordIds = new long[] { keywordId } },
                     SearchFieldNames = new API_Yandex_Direct.Get.KeywordBid.KeywordBidSearchFieldEnum[]
                     {
@@ -38,18 +39,15 @@ namespace PresentationMVC.Models
                 ApiConnect).ToList();
 
             List<API_Yandex_Direct.Model.KeywordClass> keywordClass =
-                new API_Yandex_Direct.Get.GetKeyword().GetKeywordParamsRequest(
+                new API_Yandex_Direct.Get.GetKeyword().GetKeywords(
                     new API_Yandex_Direct.Get.Keywords.ParamsRequest
-                    {
-                        FieldNames = new string[]
+                     (new API_Yandex_Direct.Get.Keywords.FieldNamesEnum[]
                         {
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.Id.ToString(),
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.AdGroupId.ToString(),
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.Keyword.ToString()
-                        },
-                        SelectionCriteria = new API_Yandex_Direct.Get.Keywords.KeywordsSelectionCriteria { Ids = new long[] { keywordId } }
-
-                    }, ApiConnect).ToList();
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.Id,
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.AdGroupId,
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.Keyword
+                        })
+                    { SelectionCriteria = new API_Yandex_Direct.Get.Keywords.KeywordsSelectionCriteria { Ids = new long[] { keywordId } } }, ApiConnect).ToList();
 
             if (keywordClass != null) Keyword = keywordClass[0].Keyword;
             if (keywordBids != null)
@@ -63,7 +61,7 @@ namespace PresentationMVC.Models
 
         long bit = 0, keywordId = 0;
         public string Keyword { get; set; }
-        
+
         public double Bit
         {
             get { return (double)bit / 1000000; }

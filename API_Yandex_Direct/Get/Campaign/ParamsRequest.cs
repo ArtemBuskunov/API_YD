@@ -1,6 +1,7 @@
 ﻿using API_Yandex_Direct.Get.Shared;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Runtime.Serialization;
 
 namespace API_Yandex_Direct.Get.Campaign
@@ -8,6 +9,7 @@ namespace API_Yandex_Direct.Get.Campaign
     [DataContract]
     public class ParamsRequest : ParamsRequestAbstract
     {
+        public ParamsRequest(FieldNamesEnum[] enumsFieldNames) : base(enumsFieldNames as Array) { }
         /// <summary>
         /// Критерий отбора кампаний.
         ///<para>Чтобы получить все кампании рекламодателя, необходимо указать пустой SelectionCriteria.</para> 

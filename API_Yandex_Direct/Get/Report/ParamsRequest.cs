@@ -2,6 +2,7 @@
 using API_Yandex_Direct.Model.Enum;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Runtime.Serialization;
 
 namespace API_Yandex_Direct.Get.Report
@@ -9,6 +10,7 @@ namespace API_Yandex_Direct.Get.Report
     [DataContract]
     public class ParamsRequest : ParamsRequestAbstract
     {
+        public ParamsRequest(FieldNamesEnum[] enumsFieldNames) : base(enumsFieldNames as Array) { }
         /// <summary>
         /// Критерии отбора данных для отчета.
         /// </summary>

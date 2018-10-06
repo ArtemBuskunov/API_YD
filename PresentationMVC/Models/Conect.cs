@@ -29,7 +29,7 @@ namespace PresentationMVC.Models
         {
             get
             {
-                if (client == null) client = new API_Yandex_Direct.Get.GetClient().GetTotalBase(ApiConnect).ToList();
+                if (client == null) client = new API_Yandex_Direct.Get.GetClient().GetClients(ApiConnect).ToList();
                 return client;
             }
         }
@@ -39,7 +39,7 @@ namespace PresentationMVC.Models
             {
                 if (campaign == null)
                 {
-                    campaign = new API_Yandex_Direct.Get.GetCampaign().GetTotalBase1(ApiConnect).ToList();
+                    campaign = new API_Yandex_Direct.Get.GetCampaign().GetCampaigns(ApiConnect).ToList();
                     IdCompany = campaign.Select(p => p.Id).ToArray();
                 }
                 return campaign;
@@ -51,7 +51,7 @@ namespace PresentationMVC.Models
             {
                 if (adGroup == null)
                 {
-                    adGroup = new API_Yandex_Direct.Get.GetAdGroup().GetAdGroupParamsRequest(
+                    adGroup = new API_Yandex_Direct.Get.GetAdGroup().GetAdGroups(
                           new API_Yandex_Direct.Get.AdGroup.FieldNamesEnum[]
                           {
                             API_Yandex_Direct.Get.AdGroup.FieldNamesEnum.Id,
@@ -70,14 +70,14 @@ namespace PresentationMVC.Models
             {
                 if (keywordClass == null)
                 {
-                    keywordClass = new API_Yandex_Direct.Get.GetKeyword().GetKeywordParamsRequest(
-                        new API_Yandex_Direct.Get.Keywords.FieldNamesList[]
+                    API_Yandex_Direct.Get.Keywords.FieldNamesEnum[] fieldNamesEnums = new API_Yandex_Direct.Get.Keywords.FieldNamesEnum[]
                         {
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.Id,
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.AdGroupId,
-                            API_Yandex_Direct.Get.Keywords.FieldNamesList.Keyword
-                        },
-                        IdAdGroup, ApiConnect).ToList();
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.Id,
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.AdGroupId,
+                            API_Yandex_Direct.Get.Keywords.FieldNamesEnum.Keyword
+                        };
+                    var keywordClasses = new API_Yandex_Direct.Get.GetKeyword().GetKeywords(fieldNamesEnums, IdAdGroup, ApiConnect);
+                    keywordClass = keywordClasses.ToList();
                 }
                 return keywordClass;
             }
@@ -88,11 +88,11 @@ namespace PresentationMVC.Models
             {
                 if (bids == null)
                 {
-                    bids = new API_Yandex_Direct.Get.GetBids().GetBidsCampParamsRequest(
-                        new API_Yandex_Direct.Get.Bids.FieldNamesList[]
+                    bids = new API_Yandex_Direct.Get.GetBid().GetBids(
+                        new API_Yandex_Direct.Get.Bids.FieldNamesEnum[]
                         {
-                            API_Yandex_Direct.Get.Bids.FieldNamesList.KeywordId,
-                            API_Yandex_Direct.Get.Bids.FieldNamesList.Bid
+                            API_Yandex_Direct.Get.Bids.FieldNamesEnum.KeywordId,
+                            API_Yandex_Direct.Get.Bids.FieldNamesEnum.Bid
                         },
                         IdCompany, ApiConnect).ToList();
                 }
@@ -108,5 +108,5 @@ namespace PresentationMVC.Models
         List<API_Yandex_Direct.Model.Client> client { get; set; }
     }
 
-    
+
 }

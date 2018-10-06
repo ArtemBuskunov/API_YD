@@ -1,9 +1,15 @@
 ﻿using API_Yandex_Direct.Get.Bids;
+using API_Yandex_Direct.Get.Shared;
+using System;
 
 namespace API_Yandex_Direct.Get
 {
-    public class GetBids
+    public class GetBid : GetAbstract
     {
+        public Model.Bids[] GetBids(ParamsRequest paramsRequest, ApiConnect.ApiConnect apiConnect)
+        { return apiConnect.GetResult5(paramsRequest, "bids", "get", ref Headers).Bids; }
+
+
         /// <summary>
         /// Получить от API ставки
         /// </summary>
@@ -11,49 +17,24 @@ namespace API_Yandex_Direct.Get
         /// <param name="CampaignIds">Перечень Id кампаний из которых нужны ставки</param>
         /// <param name="apiConnect">Данные ползователя для запроса</param>
         /// <returns>Ставик Bids</returns>
-        public Model.Bids[] GetBidsCampParamsRequest(FieldNamesList[] SetParamsRequest, long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
+        public Model.Bids[] GetBids(long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            string[] Headers = new string[] { };
+            ParamsRequest paramsRequest = new ParamsRequest(new FieldNamesEnum[] { FieldNamesEnum.Bid, FieldNamesEnum.AuctionBids })
+            { SelectionCriteria = new BidsSelectionCriteria { CampaignIds = CampaignIds } };
 
-            string[] pr = new string[SetParamsRequest.Length];
-            for (int i = 0; i < SetParamsRequest.Length; i++) { pr[i] = SetParamsRequest[i].ToString(); }
-            paramsRequest.FieldNames = pr;
             paramsRequest.SelectionCriteria.CampaignIds = CampaignIds;
-            return GetBidsCampParamsRequest(paramsRequest, apiConnect);
+            return GetBids(paramsRequest, apiConnect);
         }
 
-        /// <summary>
-        /// Получить от API ставки
-        /// </summary>
-        /// <param name="paramsRequest">фильтр запроса</param>
-        /// <param name="apiConnect">Данные ползователя для запроса</param>
-        /// <returns>Ставик Bids </returns>
-        public Model.Bids[] GetBidsCampParamsRequest(ParamsRequest paramsRequest, ApiConnect.ApiConnect apiConnect)
+        public Model.Bids[] GetBids(FieldNamesEnum[] SetParamsRequest, long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            string[] Headers = new string[] { };
-            return apiConnect.GetResult5(paramsRequest, "bids", "get", ref Headers).Bids;
+            if (SetParamsRequest is null) { return null; }
+            ParamsRequest paramsRequest = new ParamsRequest(SetParamsRequest)
+            { SelectionCriteria = new BidsSelectionCriteria { CampaignIds = CampaignIds } };
+
+            paramsRequest.SelectionCriteria.CampaignIds = CampaignIds;
+            return GetBids(paramsRequest, apiConnect);
         }
-
-
-
-        /// <summary>
-        ///  Units указано количество баллов: израсходовано при выполнении запроса / доступный остаток / суточный лимит.
-        /// </summary>
-        public string Units = "";
-
-
-        /// <summary>
-        /// Настройка фильтра запроса
-        /// </summary>
-        ParamsRequest paramsRequest = new ParamsRequest
-        {
-            SelectionCriteria = new BidsSelectionCriteria(),
-            FieldNames = new string[]
-               {
-                FieldNamesList.Bid.ToString(),
-                FieldNamesList.AuctionBids.ToString()
-               }
-        };
 
     }
 }

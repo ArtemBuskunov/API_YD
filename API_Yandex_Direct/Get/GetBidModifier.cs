@@ -1,42 +1,35 @@
 ﻿using API_Yandex_Direct.Get.BidModifier;
+using API_Yandex_Direct.Get.Shared;
+using System;
 
 namespace API_Yandex_Direct.Get
 {
-    public class GetBidModifier
+    public class GetBidModifier : GetAbstract
     {
+        public Model.BidModifier[] GetBidModifiers(ParamsRequest paramsRequest, ApiConnect.ApiConnect apiConnect)
+        { return apiConnect.GetResult5(paramsRequest, "bidmodifiers", "get", ref Headers).BidModifiers; }
 
-        public Model.BidModifier[] GetBidsCampParamsRequest
-            (FieldNamesList[] SetParamsRequest, long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
+        public Model.BidModifier[] GetBidModifiers(long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            string[] Headers = new string[] { };
-            string[] pr = new string[SetParamsRequest.Length];
-            for (int i = 0; i < SetParamsRequest.Length; i++) { pr[i] = SetParamsRequest[i].ToString(); }
-            paramsRequest.FieldNames = pr;
-            paramsRequest.SelectionCriteria.CampaignIds = CampaignIds;
-            return apiConnect.GetResult5(paramsRequest, "bidmodifiers", "get", ref Headers).BidModifiers;
+            ParamsRequest paramsRequest = new ParamsRequest(new FieldNamesEnum[] {
+                    FieldNamesEnum.AdGroupId,
+                    FieldNamesEnum.CampaignId,
+                    FieldNamesEnum.Id,
+                    FieldNamesEnum.Level,
+                    FieldNamesEnum.Type, })
+            { SelectionCriteria = new BidModifiersSelectionCriteria() { CampaignIds = CampaignIds } };
+            return GetBidModifiers(paramsRequest, apiConnect);
         }
 
-        /// <summary>
-        ///  Units указано количество баллов: израсходовано при выполнении запроса / доступный остаток / суточный лимит.
-        /// </summary>
-        public string Units = "";
-
-
-        /// <summary>
-        /// Настройка фильтра запроса
-        /// </summary>
-        ParamsRequest paramsRequest = new ParamsRequest()
+        public Model.BidModifier[] GetBidModifiers(FieldNamesEnum[] GetParamsRequest, long[] CampaignIds, ApiConnect.ApiConnect apiConnect)
         {
-            SelectionCriteria = new BidModifiersSelectionCriteria(),
-            FieldNames = new string[]
-               {
-                FieldNamesList.AdGroupId.ToString(),
-                FieldNamesList.CampaignId.ToString(),
-                FieldNamesList.Id.ToString(),
-                FieldNamesList.Level.ToString(),
-                FieldNamesList.Type.ToString(),
-               }
-        };
+            if (GetParamsRequest is null) { return null; }
+
+            ParamsRequest paramsRequest = new ParamsRequest(GetParamsRequest)
+            { SelectionCriteria = new BidModifiersSelectionCriteria() { CampaignIds = CampaignIds } };
+            return GetBidModifiers(paramsRequest, apiConnect);
+        }
+
 
     }
 }

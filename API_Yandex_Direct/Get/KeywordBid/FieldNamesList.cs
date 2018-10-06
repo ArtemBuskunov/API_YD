@@ -9,7 +9,7 @@ namespace API_Yandex_Direct.Get.KeywordBid
     /// <summary>
     /// Перечень доступных полей для запросов
     /// </summary>       
-    public enum FieldNamesList
+    public enum FieldNamesEnum
     {
         /// <summary>
         /// Идентификатор кампании, к которой относится ключевая фраза или автотаргетинг.

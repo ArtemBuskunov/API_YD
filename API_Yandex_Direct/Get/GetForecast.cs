@@ -20,10 +20,5 @@ namespace API_Yandex_Direct.Get
             return apiConnect.GetResult4(null, "", "GetForecastList", ref Headers, requestResult4).Data as ForecastStatusInfo[];
             
         }
-
-        /// <summary>
-        ///  Units указано количество баллов: израсходовано при выполнении запроса / доступный остаток / суточный лимит.
-        /// </summary>
-        public string Units = "";
     }
 }

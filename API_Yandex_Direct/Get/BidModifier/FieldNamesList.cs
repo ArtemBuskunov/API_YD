@@ -3,5 +3,5 @@
     /// <summary>
     /// Перечень доступных полей для запросов
     /// </summary>       
-    public enum FieldNamesList { Id, CampaignId, AdGroupId, Level, Type };
+    public enum FieldNamesEnum { Id, CampaignId, AdGroupId, Level, Type };
 }
