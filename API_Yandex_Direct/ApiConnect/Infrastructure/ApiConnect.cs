@@ -27,51 +27,16 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
         /// <summary>
         /// получаем ответ яндекс директ
         /// </summary>
-        /// <param name="requestObj">Объект-запрос, отсылается на сторону яндекс директ</param>
-        /// <param name="Units">Суточный лимит баллов</param>
+        /// <param name="requestObj">объект которые необходимо отправить RequestObjectV5 или RequestObjectV4</param>
         /// <param name="siteUnits">Объект в Яндекс директ, для запроса</param>
-        /// <param name="UseOperatorUnits">Расходовать баллы агентства, а не рекламодателя при выполнении запроса.</param>
+        /// <param name="Headers">Заголовки запроса</param>
+        /// <param name="UseOperatorUnits">Use-Operator-Units: true  - Расходовать баллы агентства, а не рекламодателя при выполнении запроса. Заголовок допустим только в запросах от имени агентства.</param>
         /// <returns></returns>
-        public string RequestStreamApi(object requestObj, string siteUnits,
-            ref string[] Headers, bool UseOperatorUnits = false)
+        public string RequestStreamApi(object requestObj, string siteUnits, ref string[] Headers, bool UseOperatorUnits = false)
         {
             string pageContent = "";
-            try
-            {
-                Request request = null;
-                StreamReader myStreamReader = null;
-                pageContent = requestStream(requestObj, siteUnits, UseOperatorUnits,
-                    ref myStreamReader, ref request, ref Headers);
-                myStreamReader.Close();
-            }
-            catch (Exception e)
-            { }
-            return pageContent;
-        }
-
-        protected string requestStream(object requestObj, string siteUnits,
-             bool UseOperatorUnits, ref StreamReader myStreamReader,
-             ref Request request, ref string[] Headers)
-        {
-            #region подготовка запроса
             string SetBodyRequest = "";
-            byte[] data = { };
-            Task task = Task.Run(() =>
-            {
-                SetBodyRequest = JsonConvertRequestObject(requestObj);
-                data = Encoding.UTF8.GetBytes(SetBodyRequest);
-            });
-
-            HttpWebRequest рttpWebRequest = HttpRequest(siteUnits, UseOperatorUnits, ref Headers);
-
-            task.Wait();
-
-            рttpWebRequest.ContentLength = data.Length;
-            #endregion
-
-            Stream requestStream = рttpWebRequest.GetRequestStream();
-            requestStream.Write(data, 0, data.Length);
-            requestStream.Close();
+            HttpWebRequest рttpWebRequest = GetHttpWebRequest(requestObj, siteUnits, UseOperatorUnits, ref Headers, ref SetBodyRequest);
 
             HttpWebResponse resp = null;
 
@@ -79,16 +44,17 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
             catch (WebException ex) { if (ex.Status == WebExceptionStatus.ProtocolError) { resp = ex.Response as HttpWebResponse; } }
 
             Stream responseStream = resp.GetResponseStream();
-            myStreamReader = new StreamReader(responseStream, Encoding.UTF8);
 
-            string pageContent = myStreamReader.ReadToEnd();
+            StreamReader myStreamReader = null;
+            myStreamReader = new StreamReader(responseStream, Encoding.UTF8);
+            pageContent = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
 
             List<string> list = new List<string>();
             foreach (var l in resp.Headers) { list.Add(l.ToString() + " : " + resp.Headers[l.ToString()]); }
             list.Add("HttpStatusCode : " + resp.StatusCode.ToString());
             Headers = list.ToArray();
-
-            request = new Request
+            Request request = new Request
             {
                 RequestId = resp.Headers["RequestId"],
                 ClientLogin = resp.Headers["Client - Login"],
@@ -100,25 +66,99 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
             return pageContent;
         }
 
-        protected HttpWebRequest HttpRequest(string siteUnits, bool UseOperatorUnits, ref string[] Headers)
+
+        /// <summary>
+        /// Подготовека HttpWebRequest для запроса к Api 
+        /// </summary>
+        /// <param name="requestObj">объект которые необходимо отправить RequestObjectV5 или RequestObjectV4</param>
+        /// <param name="siteUnits">Адрес по которому отправляется запрос</param>
+        /// <param name="UseOperatorUnits">Use-Operator-Units: true  - Расходовать баллы агентства, а не рекламодателя при выполнении запроса. Заголовок допустим только в запросах от имени агентства.</param>
+        /// <param name="Headers">Заголовки запроса</param>
+        /// <param name="SetBodyRequest">Текстовое представление сформированого запроса</param>
+        /// <returns></returns>
+        protected HttpWebRequest GetHttpWebRequest
+            (object requestObj, string siteUnits, bool UseOperatorUnits, ref string[] Headers, ref string SetBodyRequest)
         {
+            string SetBodyRequest1 = "";
+            byte[] data = { };
+            Task task = Task.Run(() =>
+            {
+                SetBodyRequest1 = JsonConvertRequestObject(requestObj);
+                data = Encoding.UTF8.GetBytes(SetBodyRequest1);
+            });
+
+            #region Заполнение Headers
             string site = ConnectUrl(siteUnits);
 
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(site);
+            HttpWebRequest рttpWebRequest = (HttpWebRequest)WebRequest.Create(site);
 
-            req.Headers.Add(string.Format("Authorization: Bearer {0}", userRequest.TokenApi));
-            if (userRequest.loginClient != "") req.Headers.Add(string.Format("Client-Login:{0}", userRequest.loginClient));
-            if (UseOperatorUnits) req.Headers.Add("Use-Operator-Units: true");
-            req.Headers.Add(string.Format("Accept-Language: {0}", userRequest.AccepLanguage));
+            рttpWebRequest.Headers.Add(string.Format("Authorization: Bearer {0}", userRequest.TokenApi));
+            if (userRequest.loginClient != "") рttpWebRequest.Headers.Add(string.Format("Client-Login:{0}", userRequest.loginClient));
+            if (UseOperatorUnits) рttpWebRequest.Headers.Add("Use-Operator-Units: true");
+            рttpWebRequest.Headers.Add(string.Format("Accept-Language: {0}", userRequest.AccepLanguage));
 
-            if (Headers.Length != 0) { foreach (var headers in Headers) { req.Headers.Add(headers); } }
+            if (Headers.Length != 0) { foreach (var headers in Headers) { рttpWebRequest.Headers.Add(headers); } }
 
-            req.ServicePoint.Expect100Continue = false;
-            req.Method = "POST";
-            req.ContentType = "application/json; charset=utf-8";
+            рttpWebRequest.ServicePoint.Expect100Continue = false;
+            рttpWebRequest.Method = "POST";
+            рttpWebRequest.ContentType = "application/json; charset=utf-8";
+            #endregion
 
-            return req;
+            task.Wait();
+
+            SetBodyRequest = SetBodyRequest1;
+
+            рttpWebRequest.ContentLength = data.Length;
+
+            Stream requestStream = рttpWebRequest.GetRequestStream();
+            requestStream.Write(data, 0, data.Length);
+            requestStream.Close();
+
+            return рttpWebRequest;
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="requestObj">объект которые необходимо отправить RequestObjectV5 или RequestObjectV4</param>
+        ///// <param name="siteUnits">Адрес по которому отправляется запрос</param>
+        ///// <param name="UseOperatorUnits">Use-Operator-Units: true  - Расходовать баллы агентства, а не рекламодателя при выполнении запроса.Заголовок допустим только в запросах от имени агентства.</param>
+        ///// <param name="Headers">Заголовки запроса</param>
+        ///// <returns></returns>
+        //protected string requestStream(object requestObj, string siteUnits, bool UseOperatorUnits, ref string[] Headers)
+        //{
+        //    string SetBodyRequest = "";
+        //    HttpWebRequest рttpWebRequest = GetHttpWebRequest(requestObj, siteUnits, UseOperatorUnits, ref Headers, ref SetBodyRequest);
+
+        //    HttpWebResponse resp = null;
+
+        //    try { resp = (HttpWebResponse)рttpWebRequest.GetResponse(); }
+        //    catch (WebException ex) { if (ex.Status == WebExceptionStatus.ProtocolError) { resp = ex.Response as HttpWebResponse; } }
+
+        //    Stream responseStream = resp.GetResponseStream();
+
+        //    StreamReader myStreamReader = null;
+
+
+        //    myStreamReader = new StreamReader(responseStream, Encoding.UTF8);
+
+        //    string pageContent = myStreamReader.ReadToEnd();
+
+        //    List<string> list = new List<string>();
+        //    foreach (var l in resp.Headers) { list.Add(l.ToString() + " : " + resp.Headers[l.ToString()]); }
+        //    list.Add("HttpStatusCode : " + resp.StatusCode.ToString());
+        //    Headers = list.ToArray();
+        //    Request request = new Request
+        //    {
+        //        RequestId = resp.Headers["RequestId"],
+        //        ClientLogin = resp.Headers["Client - Login"],
+        //        Units = resp.Headers["Units"],
+        //        RequestText = рttpWebRequest.Headers.ToString() + "   " + SetBodyRequest,
+        //        ResponseText = resp.Headers.ToString() + "   " + pageContent
+        //    };
+
+        //    return pageContent;
+        //}
 
         /// <summary>
         /// Строка подключения к api

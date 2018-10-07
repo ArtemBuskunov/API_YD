@@ -9,37 +9,42 @@ namespace API_Yandex_Direct.ApiConnect
 {
     public class ApiConnect
     {
-        public ApiConnect(UserRequest userRequest, string UrlDirect)
+        public ApiConnect(UserRequest userRequest)
         {
             UserRequest = userRequest;
             UrlDirect = "api.direct.yandex.com";
         }
-
-        internal object GetResult5(ParamsRequest paramsRequest, string v1, string v2)
+        public ApiConnect(UserRequest userRequest, string UrlDirectx)
         {
-            throw new NotImplementedException();
+            UserRequest = userRequest;
+            UrlDirect = UrlDirectx;
         }
-
         public ApiConnect(string TokenApi, string loginClient, AccepLanguage accepLanguage)
         {
-            UserRequest = new UserRequest();
-            UserRequest.AccepLanguage = accepLanguage;
-            UserRequest.loginClient = loginClient;
-            UserRequest.TokenApi = TokenApi;
+            UserRequest = new UserRequest
+            {
+                AccepLanguage = accepLanguage,
+                loginClient = loginClient,
+                TokenApi = TokenApi
+            };
             UrlDirect = "api.direct.yandex.com";
         }
         public ApiConnect(string TokenApi, string loginClient, string urlDirect, AccepLanguage accepLanguage)
         {
-            UserRequest = new UserRequest();
-            UserRequest.AccepLanguage = accepLanguage;
-            UserRequest.loginClient = loginClient;
-            UserRequest.TokenApi = TokenApi;
+            UserRequest = new UserRequest
+            {
+                AccepLanguage = accepLanguage,
+                loginClient = loginClient,
+                TokenApi = TokenApi
+            };
             UrlDirect = urlDirect;
         }
+
         /// <summary>
         /// Данные клиента Api для подключения.
         /// </summary>
         public UserRequest UserRequest { get; set; }
+     
         /// <summary>
         /// Адрес подключения к Yandex.Direct.v5
         /// </summary>
@@ -49,30 +54,49 @@ namespace API_Yandex_Direct.ApiConnect
         /// <summary>
         /// Вызов к Api для получения данных по объекту
         /// </summary>
-        /// <param name="paramsRequest"></param>
-        /// <param name="ObjectRequest"></param>
-        /// <param name="Metod"></param>
-        /// <param name="Headers"></param>
+        /// <param name="paramsRequest">Данные для запроса</param>
+        /// <param name="ObjectRequest">Название объекта для запроса</param>
+        /// <param name="Metod">Что делать в запросе</param>
+        /// <param name="Headers">Заголовки запроса</param>
         /// <returns></returns>
         public Result5 GetResult5(dynamic paramsRequest, string ObjectRequest, string Metod, ref string[] Headers)
         { return new ApiConnect5(UserRequest, UrlDirect).Get(paramsRequest, ObjectRequest, Metod, ref Headers); }
+
         /// <summary>
         /// Вызов к Api для отправки новых данных
         /// </summary>
-        /// <param name="paramsRequest"></param>
-        /// <param name="ObjectRequest"></param>
-        /// <param name="Metod"></param>
-        /// <param name="Headers"></param>
+        /// <param name="paramsRequest">Данные для запроса</param>
+        /// <param name="ObjectRequest">Название объекта для запроса</param>
+        /// <param name="Metod">Что делать в запросе</param>
+        /// <param name="Headers">Заголовки запроса</param>
         /// <returns></returns>
         public Result5 SetResult5(dynamic paramsRequest, string ObjectRequest, string Metod, ref string[] Headers)
         { return new ApiConnect5(UserRequest, UrlDirect).Set(paramsRequest, ObjectRequest, Metod, ref Headers); }
+
+        /// <summary>
+        /// Вызов к Api для получения рапортов 
+        /// </summary>
+        /// <param name="paramsRequest">Данные для запроса</param>
+        /// <param name="ObjectRequest">Название объекта для запроса</param>
+        /// <param name="Metod">Что делать в запросе</param>
+        /// <param name="Headers">Заголовки запроса</param>
+        /// <returns></returns>
         public List<string[]> RequestReport(dynamic paramsRequest, string ObjectRequest, string Metod, ref string[] Headers)
         { return new ApiConnect5(UserRequest, UrlDirect).RequestReport(paramsRequest, ObjectRequest, Metod, ref Headers); }
+
+        /// <summary>
+        ///  Вызов к Api для получения данных по объекту из 4 версии
+        /// </summary>
+        /// <param name="paramsRequest">Данные для запроса</param>
+        /// <param name="ObjectRequest">Название объекта для запроса</param>
+        /// <param name="Metod">Что делать в запросе</param>
+        /// <param name="Headers">Заголовки запроса</param>
+        /// <param name="result">Полученые двнные</param>
+        /// <returns></returns>
         public Result4 GetResult4(dynamic paramsRequest, string ObjectRequest, string Metod, ref string[] Headers, Result4 result)
         { return new ApiConnect4(UserRequest, UrlDirect).Get(paramsRequest, ObjectRequest, Metod, ref Headers, result); }
-
-
-        Queue<Task> apiConnectAs = new Queue<Task>();
+        
+       // Queue<Task> apiConnectAs = new Queue<Task>();
 
 
     }
