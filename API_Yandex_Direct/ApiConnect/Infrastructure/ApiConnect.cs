@@ -130,9 +130,9 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
             SetBodyRequest = SetBodyRequest1;
 
             рttpWebRequest.ContentLength = data.Length;
-            рttpWebRequest.Proxy = null; // Для ускорение рttpWebRequest.GetRequestStream() - указываем отсутсвие Proxy
+            рttpWebRequest.Proxy = null; // Для ускорения рttpWebRequest.GetRequestStream() - указываем отсутствие Proxy
             рttpWebRequest.AllowAutoRedirect = false;// Для ускорение рttpWebRequest.GetRequestStream() - указываем отсутсвие перехода на другу строницу
-            рttpWebRequest.ServicePoint.ConnectionLimit = 5; // Указываем количество потоков которые могут быть одномоментно обработаны
+            рttpWebRequest.ServicePoint.ConnectionLimit = 5; // Указываем количество потоков, которые могут быть одномоментно обработаны
             using (Stream requestStream = рttpWebRequest.GetRequestStream())
             { requestStream.Write(data, 0, data.Length); }
 

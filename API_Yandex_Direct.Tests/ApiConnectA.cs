@@ -8,7 +8,8 @@ namespace API_Yandex_Direct.Tests
     [TestClass]
     public class ApiConnect5 : API_Yandex_Direct.ApiConnect.Infrastructure.ApiConnect5
     {
-        public ApiConnect5() : base(new UserRequest("Tester") { AccepLanguage = AccepLanguage.ru, TokenApi = "Tokin1" }) { }
+        public ApiConnect5() : base(new UserRequest("Tester")
+        { AccepLanguage = AccepLanguage.ru, TokenApi = "Tokin1" }) { }
 
         [TestMethod]
         public void GetHttpWebRequest_Base1()
@@ -156,6 +157,67 @@ Connection: Keep-Alive
 
 
         }
+
+        string TokenApi = "AQAAAAAE7q3dAASHNBrPJMC_eUL9tGymAxVSAAU";
+
+        [TestMethod]
+        public void RequestStreamApi_Base1()
+        {
+            // Arrang
+            userRequest.TokenApi = TokenApi;
+            userRequest.loginClient = "";
+
+            API_Yandex_Direct.Get.Campaign.ParamsRequest paramsRequest
+                = new API_Yandex_Direct.Get.Campaign.ParamsRequest(
+                    new API_Yandex_Direct.Get.Campaign.FieldNamesEnum[]
+                    { API_Yandex_Direct.Get.Campaign.FieldNamesEnum.Id })
+                { SelectionCriteria = new API_Yandex_Direct.Get.Campaign.SelectionCriteriaFromCampaignRequest() };
+
+            RequestObjectV5 requestObjectV5 = new RequestObjectV5() { Method = "get", Params = paramsRequest };
+
+            string[] Headers = new string[] { };
+            string expectedrespond = "{\"result\":{\"Campaigns\":[{\"Id\":30099992}]}}";
+            
+            // Act
+            string respond = RequestStreamApi(requestObjectV5, "campaigns",  ref Headers);
+            
+            // Assert
+            Assert.AreEqual(expectedrespond, respond);
+        }
+
+        [TestMethod]
+        public void RequestStreamApi_Base_for()
+        {
+            // Arrang
+            userRequest.TokenApi = TokenApi;
+            userRequest.loginClient = "";
+
+            API_Yandex_Direct.Get.Campaign.ParamsRequest paramsRequest
+                = new API_Yandex_Direct.Get.Campaign.ParamsRequest(
+                    new API_Yandex_Direct.Get.Campaign.FieldNamesEnum[]
+                    { API_Yandex_Direct.Get.Campaign.FieldNamesEnum.Id })
+                { SelectionCriteria = new API_Yandex_Direct.Get.Campaign.SelectionCriteriaFromCampaignRequest() };
+
+            RequestObjectV5 requestObjectV5 = new RequestObjectV5() { Method = "get", Params = paramsRequest };
+
+            string[] Headers = new string[] { };
+            string expectedrespond = "{\"result\":{\"Campaigns\":[{\"Id\":30099992}]}}";
+            string respond = "";
+            // Act
+            for (int i = 0; i < 10; i++)
+            {
+                Headers = new string[] { };
+                respond = RequestStreamApi(requestObjectV5, "campaigns", ref Headers);
+            }
+
+            // Assert
+            Assert.AreEqual(expectedrespond, respond);
+        }
+
+
+
+
+
 
     }
 }
