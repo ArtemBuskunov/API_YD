@@ -9,7 +9,7 @@ namespace API_Yandex_Direct.Get.KeywordBid
     /// <summary>
     /// Имена параметров торгов в сетях, которые требуется получить.
     /// </summary>       
-    public enum KeywordBidNetworkFieldEnum
+    public enum KeywordBidNetworkFieldEnum : byte
     {
         Bid,
         Coverage

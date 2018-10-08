@@ -7,5 +7,5 @@ namespace API_Yandex_Direct.Model.Enum
     /// Справочник валют
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum CurrencyEnum { RUB, BYN, CHF, EUR, KZT, TRY, UAH, USD, YND_FIXED }
+    public enum CurrencyEnum : byte { RUB, BYN, CHF, EUR, KZT, TRY, UAH, USD, YND_FIXED }
 }

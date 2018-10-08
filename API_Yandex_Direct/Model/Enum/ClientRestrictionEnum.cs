@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     ///  Имя ограничения
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ClientRestrictionEnum
+    public enum ClientRestrictionEnum : byte
     {
         /// <summary>
         /// максимальное количество кампаний у рекламодателя.

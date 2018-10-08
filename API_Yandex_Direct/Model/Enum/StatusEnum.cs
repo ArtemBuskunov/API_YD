@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     /// Параметр Status отражает обобщенный результат модерации ключевых фраз. Ключевые фразы отправляются на модерацию автоматически, когда на модерацию отправляется одно из объявлений группы.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum StatusEnum
+    public enum StatusEnum : byte
     {
         /// <summary>
         /// Группа создана и еще не отправлена на модерацию.
@@ -32,7 +32,7 @@ namespace API_Yandex_Direct.Model.Enum
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum StatusEnumK
+    public enum StatusEnumK : byte
     {
         /// <summary>
         /// Новая фраза: еще не отправлена на модерацию или находится на модерации.

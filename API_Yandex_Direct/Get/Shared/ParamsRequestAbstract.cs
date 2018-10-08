@@ -31,7 +31,7 @@ namespace API_Yandex_Direct.Get.Shared
     {
         public ParamsRequestAbstractNotPage(Array enumsFieldNames)
 
-        { FieldNames = Convert.EnumArrayToStringArray(enumsFieldNames); }
+        {            FieldNames = Convert.EnumArrayToStringArray(enumsFieldNames);        }
         /// <summary>
         /// Имена параметров верхнего уровня, которые требуется получить.
         /// </summary>

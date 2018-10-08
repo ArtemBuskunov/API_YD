@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     /// Параметр ServingStatus отражает возможность показов по содержащимся в группе условиям показа.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ServingStatusEnum
+    public enum ServingStatusEnum : byte
     {
         /// <summary>
         /// Показы возможны.

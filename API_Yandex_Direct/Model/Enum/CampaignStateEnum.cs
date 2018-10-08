@@ -4,5 +4,14 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Model.Enum
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum CampaignStateEnum { CONVERTED, ARCHIVED, SUSPENDED, ENDED, ON, OFF, UNKNOWN }
+    public enum CampaignStateEnum : byte
+    {
+        CONVERTED,
+        ARCHIVED,
+        SUSPENDED,
+        ENDED,
+        ON,
+        OFF,
+        UNKNOWN
+    }
 }

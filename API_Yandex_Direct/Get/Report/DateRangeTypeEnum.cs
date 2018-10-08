@@ -5,7 +5,7 @@ namespace API_Yandex_Direct.Get.Report
 {
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum DateRangeTypeEnum
+    public enum DateRangeTypeEnum : byte
     {
         /// <summary>
         ///  — текущий день;

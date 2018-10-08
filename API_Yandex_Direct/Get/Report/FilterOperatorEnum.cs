@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Get.Report
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum FilterOperatorEnum
+    public enum FilterOperatorEnum : byte
     {
 
         /// <summary>

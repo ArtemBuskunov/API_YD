@@ -44,7 +44,7 @@ namespace API_Yandex_Direct.ApiConnect
         /// Данные клиента Api для подключения.
         /// </summary>
         public UserRequest UserRequest { get; set; }
-     
+
         /// <summary>
         /// Адрес подключения к Yandex.Direct.v5
         /// </summary>
@@ -95,9 +95,5 @@ namespace API_Yandex_Direct.ApiConnect
         /// <returns></returns>
         public Result4 GetResult4(dynamic paramsRequest, string ObjectRequest, string Metod, ref string[] Headers, Result4 result)
         { return new ApiConnect4(UserRequest, UrlDirect).Get(paramsRequest, ObjectRequest, Metod, ref Headers, result); }
-        
-       // Queue<Task> apiConnectAs = new Queue<Task>();
-
-
     }
 }

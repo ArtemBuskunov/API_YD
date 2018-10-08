@@ -7,7 +7,8 @@ namespace API_Yandex_Direct.Model.Enum
     /// Имя полномочия
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum PrivilegeEnum {
+    public enum PrivilegeEnum : byte
+    {
         /// <summary>
         /// редактирование кампаний.
         /// </summary>

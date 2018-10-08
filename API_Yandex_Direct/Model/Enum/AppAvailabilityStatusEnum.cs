@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Model.Enum
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum AppAvailabilityStatusEnum
+    public enum AppAvailabilityStatusEnum : byte
     {
         /// <summary>
         /// доступно

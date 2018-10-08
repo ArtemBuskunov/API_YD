@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     /// Тип группы задается при создании и недоступен для изменения.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum AdGroupTypesEnum
+    public enum AdGroupTypesEnum : byte
     {
         /// <summary>
         /// группа текстово-графических объявлений.

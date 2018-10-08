@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     /// Параметр Status отражает результат модерации ключевой фразы.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum StateEnum
+    public enum StateEnum : byte
     {
         /// <summary>
         /// Показы объявлений по фразе возможны.

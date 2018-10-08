@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Get.Report
     /// Перечень доступных полей для запросов
     /// </summary>   
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum FieldNamesEnum
+    public enum FieldNamesEnum : byte
     {
         /// <summary>
         /// Формат показа объявления:

@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     ///   Имя настройки
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ClientSettingGetEnum
+    public enum ClientSettingGetEnum : byte
     {
         /// <summary>
         /// автоматически исправлять ошибки и опечатки.

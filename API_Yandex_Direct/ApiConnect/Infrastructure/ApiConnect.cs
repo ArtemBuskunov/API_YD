@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -79,12 +78,34 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
         protected HttpWebRequest GetHttpWebRequest
             (object requestObj, string siteUnits, bool UseOperatorUnits, ref string[] Headers, ref string SetBodyRequest)
         {
+            #region Проверка входных данных
+            if (requestObj is null)
+            { SetBodyRequest = "requestObj is null не допустимо"; return null; }
+            if (requestObj is RequestObjectV5)
+            {
+                if ((requestObj as RequestObjectV5).Params is null)
+                { SetBodyRequest = "Params == null не допустимо"; return null; }
+
+                if ((requestObj as RequestObjectV5).Params.FieldNames.Length == 0)
+                { SetBodyRequest = "ParamsRequest.FieldNames.Length = 0 не допустимо"; return null; }
+            }
+            else
+            {
+                if ((requestObj as RequestObjectV4).Param == 0)
+                { SetBodyRequest = "Param == null не допустимо"; return null; }
+
+                if ((requestObj as RequestObjectV4).Param.FieldNames.Length == 0)
+                { SetBodyRequest = "ParamsRequest.FieldNames.Length = 0 не допустимо"; return null; }
+            }
+            #endregion
+
             string SetBodyRequest1 = "";
             byte[] data = { };
             Task task = Task.Run(() =>
             {
                 SetBodyRequest1 = JsonConvertRequestObject(requestObj);
                 data = Encoding.UTF8.GetBytes(SetBodyRequest1);
+
             });
 
             #region Заполнение Headers
@@ -109,10 +130,11 @@ namespace API_Yandex_Direct.ApiConnect.Infrastructure
             SetBodyRequest = SetBodyRequest1;
 
             рttpWebRequest.ContentLength = data.Length;
-
-            Stream requestStream = рttpWebRequest.GetRequestStream();
-            requestStream.Write(data, 0, data.Length);
-            requestStream.Close();
+            рttpWebRequest.Proxy = null; // Для ускорение рttpWebRequest.GetRequestStream() - указываем отсутсвие Proxy
+            рttpWebRequest.AllowAutoRedirect = false;// Для ускорение рttpWebRequest.GetRequestStream() - указываем отсутсвие перехода на другу строницу
+            рttpWebRequest.ServicePoint.ConnectionLimit = 5; // Указываем количество потоков которые могут быть одномоментно обработаны
+            using (Stream requestStream = рttpWebRequest.GetRequestStream())
+            { requestStream.Write(data, 0, data.Length); }
 
             return рttpWebRequest;
         }

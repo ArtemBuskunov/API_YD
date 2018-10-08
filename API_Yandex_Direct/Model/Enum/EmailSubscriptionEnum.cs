@@ -7,7 +7,8 @@ namespace API_Yandex_Direct.Model.Enum
     /// Тип уведомления:
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum EmailSubscriptionEnum {
+    public enum EmailSubscriptionEnum : byte
+    {
         /// <summary>
         /// новости Директа и рекомендации.
         /// </summary>

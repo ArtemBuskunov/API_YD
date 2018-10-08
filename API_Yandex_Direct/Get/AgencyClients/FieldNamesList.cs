@@ -3,7 +3,7 @@
     /// <summary>
     /// Перечень доступных полей для запросов
     /// </summary>       
-    public enum FieldNamesEnum
+    public enum FieldNamesEnum : byte
     {
         /// <summary>
         ///  Показатель качества аккаунта 

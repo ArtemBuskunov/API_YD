@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     /// Тип группы задается при создании и недоступен для изменения.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum AdGroupSubtypeEnum
+    public enum AdGroupSubtypeEnum: byte
     {
         /// <summary>
         /// Для групп с типом, отличным от DYNAMIC_TEXT_AD_GROUP

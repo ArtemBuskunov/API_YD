@@ -7,7 +7,7 @@ namespace API_Yandex_Direct.Model.Enum
     ///  Роль пользователя
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum RepresentativeRoleEnum
+    public enum RepresentativeRoleEnum : byte
     {
         /// <summary>
         /// главный представитель рекламодателя.

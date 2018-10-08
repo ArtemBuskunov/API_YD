@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Model.Enum
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum TextCampaignSettingsEnum
+    public enum TextCampaignSettingsEnum : byte
     {
 
         ADD_METRICA_TAG,

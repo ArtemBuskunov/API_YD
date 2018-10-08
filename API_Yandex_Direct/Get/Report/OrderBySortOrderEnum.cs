@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Get.Report
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrderBySortOrderEnum
+    public enum OrderBySortOrderEnum : byte
     {
 
         /// <summary>

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace API_Yandex_Direct.Get.AdGroup
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum MobileAppAdGroupFieldEnum
+    public enum MobileAppAdGroupFieldEnum : byte
     {
         StoreUrl,
         TargetDeviceType,

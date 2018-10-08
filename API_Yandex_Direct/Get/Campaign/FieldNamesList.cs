@@ -3,7 +3,7 @@
     /// <summary>
     /// Перечень доступных полей для запросов
     /// </summary>       
-    public enum FieldNamesEnum
+    public enum FieldNamesEnum : byte
     {
         BlockedIps, ExcludedSites, Currency, DailyBudget, Notification, EndDate, Funds, ClientInfo, Id, Name,
         NegativeKeywords, RepresentedBy, StartDate, Statistics, State, Status, StatusPayment,

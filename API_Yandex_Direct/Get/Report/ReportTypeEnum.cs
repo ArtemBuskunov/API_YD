@@ -5,7 +5,7 @@ namespace API_Yandex_Direct.Get.Report
 {
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ReportTypeEnum
+    public enum ReportTypeEnum : byte
     {
         /// <summary>
         /// Статистика по аккаунту рекламодателя

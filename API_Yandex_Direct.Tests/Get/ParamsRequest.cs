@@ -26,7 +26,7 @@ namespace API_Yandex_Direct.Tests.Get
             // Assert
             CollectionAssert.AreEqual(expected, paramsRequest.FieldNames);
         }
-        
+
         [TestMethod]
         public void ParamsRequestBase_Get_AgencyClients()
         {
